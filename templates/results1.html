@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection Results</title>
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Detection Results</h1>
+    <img src="data:image/jpeg;base64,{{image_data | safe}}" alt="Detected Image">
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Confidence</th>
+        </tr>
+        {% for item, score in detected_items %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>{{ score | round(2) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">Go Back</a>
+</body>
+</html>

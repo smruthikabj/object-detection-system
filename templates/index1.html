@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection</title>
+</head>
+<body>
+    <h1>Object Detection Web App</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="image-input" name="image">
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result">
+        <h2>Processed Image:</h2>
+        <img id="result-image" src="" alt="Result Image">
+    </div>
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('image', document.getElementById('image-input').files[0]);
+
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            document.getElementById('result-image').src = url;
+        });
+    </script>
+</body>
+</html>
